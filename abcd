@@ -1,0 +1,47 @@
+public class Test {
+    public static void main(String[] args) {
+        HagenGames hg = new HagenGames();
+        K1618Restricted game = hg.buyGame();
+       
+        game.playGame();
+        // game.update(); führt zu einem Compilerfehler: The method update() is undefined for the type K1618Restricted
+       
+        hg.udateK1618(game); // Aufgabe a)
+        game.playGame();
+    }
+}
+ 
+public interface K1618Restricted {
+    public void playGame();
+}
+ 
+class HagenGames {
+    public K1618Restricted buyGame() {
+        return new K1618();
+    }
+ 
+    public void udateK1618(K1618Restricted game) {
+        ((K1618) game).update();
+    }
+}
+class K1618 implements K1618Restricted{
+    private double version = 1.0;
+ 
+    public void playGame() {
+        System.out.println("Running Kurs1618, Version " + version);
+    }
+ 
+    public void update() {
+        version = version + 0.1;
+    }
+}
+ 
+Aufgabe d)
+Um die Methode update() der Klasse K1618 vor der Klasse Test zu verstecken, hat man zwei Möglichkeiten.
+ 
+1.) Die Klasse K1618 und die Klasse Test in verschiedene Pakete packen und die Methode update() als paketlokal, 
+also ohne Modifizierer deklarieren. Die Methode update() wäre nur innerhalb des Pakets sichtbar zu der die 
+Klasse K1618 gehört. Die Klasse HagenGames müsste dann zusammen mit K1618 in das gleiche Paket gepackt werden.
+ 
+2.) Alle Klassen in einem Paket, aber die Klasse K1618 als innere Klasse von HagenGames zu realisieren und die 
+methode update() der Klasse K1618 als private zu deklarieren. Die Methode wäre dann nur innerhalb der Klasse HagenGames sichtbar.
